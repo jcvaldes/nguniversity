@@ -77,3 +77,13 @@ npx sequelize-cli db:seed:undo:all
 ```
 npx sequelize-cli model:generate --name User --attributes fullname:string,lastname:string
 ```
+
+## Enviar Mails para verificar cuenta con nodemailer
+```
+npm i -S -E nodemailer nodemailer-express-handlebars
+```
+
+## jsonwebtoken sirve para crear tokens bearer
+```
+npm i -S -E jsonwebtoken
+```

@@ -1,15 +1,27 @@
 // const express = require('express')
 import express from 'express'
 import db from './models/index'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import path from 'path'
+import apiRoutes from './api/api.routes'
+const dotenv = require("dotenv").config({ path: path.join(__dirname, './', '/.env') }).parsed
 
 // creamos un servidor express
 const app = express()
 
+// Body Parser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+// CORS
+app.use(cors());
+
+app.use('/api', apiRoutes)
 app.get('/', (req, res) => {
   res.send('Welcome to my API!')
 })
             // variable de entorno
-const PORT = process.env.PORT || 3000;
+const PORT = +process.env.PORT || +dotenv.PORT;
 
 db.sequelize
   .sync()

@@ -38,6 +38,16 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       default: false
     },
+    reset_password_token: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      default: false
+    },
+    reset_password_expires: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      default: false
+    },
     img: {
       type: DataTypes.STRING,
       allowNull: true,
