@@ -2,13 +2,13 @@ import * as bcrypt from 'bcryptjs';
 
 export default (sequelize, DataTypes) => {
 
-  const UserSubject = sequelize.define('UserSubject', {
+  const TeacherSubject = sequelize.define('TeacherSubject', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    UserId: {
+    TeacherId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -23,12 +23,12 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.DATE,
     },
   });
-  UserSubject.associate = (models) => {
+  TeacherSubject.associate = (models) => {
 
   };
   // Method 3 via the direct method
-  UserSubject.beforeCreate((userSubject, options) => {
+  TeacherSubject.beforeCreate((TeacherSubject, options) => {
 
   });
-  return UserSubject;
+  return TeacherSubject;
 };

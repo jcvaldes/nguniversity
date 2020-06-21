@@ -41,8 +41,8 @@ export default (sequelize, DataTypes) => {
     });
     // M:M
     Subject.belongsToMany(models.User, {
-      through: { model: models.UserSubject },
-      as: 'users',
+      through: { model: models.TeacherSubject },
+      as: 'teachers',
       foreignKey: 'SubjectId',
     });
   };

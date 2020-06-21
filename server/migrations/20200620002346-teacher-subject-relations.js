@@ -2,9 +2,9 @@
 module.exports = {
   up(queryInterface) {
     return queryInterface.addConstraint(
-        'UserSubjects', ['UserId'], {
+        'TeacherSubjects', ['TeacherId'], {
           type: 'foreign key',
-          name: 'fk_UserSubjects_UserId',
+          name: 'fk_TeacherSubjects_TeacherId',
           references: {
             table: 'Users', // name of Target model
             field: 'id', // key in Target model that we're referencing
@@ -13,9 +13,9 @@ module.exports = {
           allowNull: false,
         },
       ), queryInterface.addConstraint(
-        'UserSubjects', ['SubjectId'], {
+        'TeacherSubjects', ['SubjectId'], {
           type: 'foreign key',
-          name: 'fk_UserSubjects_SubjectId',
+          name: 'fk_TeacherSubjects_SubjectId',
           references: {
             table: 'Subjects', // name of Target model
             field: 'id', // key in Target model that we're referencing
@@ -26,7 +26,7 @@ module.exports = {
       );
   },
   down(queryInterface) {
-    return queryInterface.removeConstraint('UserSubjects', 'fk_UserSubjects_UserId'),
-      queryInterface.removeConstraint('UserSubjects', 'fk_UserSubjects_SubjectId');
+    return queryInterface.removeConstraint('TeacherSubjects', 'fk_TeacherSubjects_TeacherId'),
+      queryInterface.removeConstraint('TeacherSubjects', 'fk_TeacherSubjects_SubjectId');
   },
 };
