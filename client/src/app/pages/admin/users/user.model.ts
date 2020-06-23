@@ -1,0 +1,25 @@
+import { Role } from '../roles/role.model';
+import { Subject } from '../subjects/subject.model';
+
+export interface IUser {
+  fullname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  confirmpassword?: string;
+  roles?: Role[];
+  img?: string;
+  id?: string;
+}
+export class User implements IUser{
+  constructor(
+    public fullname: string,
+    public lastname: string,
+    public email: string,
+    public password: string,
+    public confirmpassword?: string,
+    public roles?: Role[],
+    public img?: string,
+    public id?: string
+  ) {}
+}

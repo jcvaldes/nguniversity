@@ -76,6 +76,12 @@ export default (sequelize, DataTypes) => {
       as: 'subjects',
       foreignKey: 'TeacherId',
     });
+    // M:M
+    User.belongsToMany(models.Role, {
+      through: { model: models.UserRole },
+      as: 'roles',
+      foreignKey: 'UserId',
+    });
   };
   // Hook se dispara antes de crear el registro en la tabla
   User.beforeCreate((user, options) => {
