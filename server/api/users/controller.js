@@ -35,7 +35,23 @@ class UsersController {
             : null,
       },
     ]
-    db.User.findAndCountAll(options)
+    db.User.findAndCountAll({ 
+      attributes: attrs,
+      include: [{
+        model: db.Role,
+        attributes: ['id', 'name'],
+        as: 'roles',
+        through: { attributes: [] },
+        where:
+          roles.length > 0
+            ? {
+                [Op.or]: {
+                  id: roles,
+                },
+              }
+            : null,
+      }]
+    })
       .then((data) => {
         res.status(200).json(Parametrizer.responseOk(data, options))
       })

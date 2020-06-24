@@ -67,13 +67,13 @@ export default (sequelize, DataTypes) => {
   User.associate = (models) => {
     // relaciones
     // 1:M
-    User.hasMany(models.Subject, {
+    User.hasMany(models.Course, {
       foreignKey: 'TeacherId'
     });
     // M:M
-    User.belongsToMany(models.Subject, {
-      through: { model: models.TeacherSubject },
-      as: 'subjects',
+    User.belongsToMany(models.Course, {
+      through: { model: models.TeacherCourse },
+      as: 'courses',
       foreignKey: 'TeacherId',
     });
     // M:M

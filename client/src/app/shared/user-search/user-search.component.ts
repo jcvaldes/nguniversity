@@ -19,6 +19,7 @@ extends ComboSearchComponent<User> implements OnChanges {
     super(_userService, false);
   }
   onLoad(filter = '') {
+    debugger
     if (!this.roles) {
       return;
     }

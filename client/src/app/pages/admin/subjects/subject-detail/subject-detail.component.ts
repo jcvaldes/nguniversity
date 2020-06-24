@@ -17,11 +17,11 @@ declare var $: any;
 export class SubjectDetailComponent implements OnInit, OnDestroy {
   Subject: Subject;
   SubjectSubscription: Subscription = new Subscription();
-  permission = [[]];
   form: FormGroup = new FormGroup({
     id: new FormControl(null),
     name: new FormControl(null, Validators.required),
-    users: new FormControl([], Validators.required),
+    period: new FormControl(null, Validators.required),
+    capacity: new FormControl(30, Validators.required),
     active: new FormControl(true),
   });
   constructor(

@@ -4,10 +4,10 @@ import Parametrizer from '../../utils/parametrizer'
 import RESPONSES from '../../utils/responses'
 import _ from 'lodash'
 
-class SubjectController {
+class CourseController {
   static Fetch(req, res) {
     const { Op } = Sequelize
-    const attrs = ['id', 'name', 'quarter', 'spaces', 'TeacherId', 'img', 'active']
+    const attrs = ['id', 'name', 'period', 'capacity', 'active']
     const search = ['name']
     const { filter } = req.query
     const options = Parametrizer.getOptions(req.query, attrs, search)
@@ -16,15 +16,7 @@ class SubjectController {
         [Op.like]: `%${filter}%`,
       }
     }
-    // options.where.name = {
-    //   [Op.like]: `%${filter}%`,
-    // };
-    // options.include = [{
-    //   model: db.permission,
-    //   as: 'permissionsSubject',
-    //   through: { attributes: [] }
-    // }]
-    db.Subject.findAndCountAll(options)
+    db.Course.findAndCountAll(options)
       .then((data) => {
         res.status(200).json(Parametrizer.responseOk(data, options))
       })
@@ -39,7 +31,7 @@ class SubjectController {
   }
   static FetchOne(req, res) {
     const id = +req.params.id
-    db.Subject.findOne({
+    db.Course.findOne({
       where: {
         id,
       },
@@ -69,11 +61,11 @@ class SubjectController {
   }
   static Create(req, res) {
     const { name, description, active } = req.body
-    db.Subject.create(req.body)
-      .then((Subject) => {
+    db.Course.create(req.body)
+      .then((Course) => {
         res.status(200).json({
           ok: true,
-          Subject,
+          Course,
         })
       })
       .catch(Sequelize.ValidationError, (msg) => {
@@ -87,15 +79,15 @@ class SubjectController {
     const { TeacherId, name, quarter, spaces, active } = req.body
     const id = +req.params.id
     if (permissions.length > 0) {
-      db.Subject.findOne({
+      db.Course.findOne({
         where: {
           id,
         },
-      }).then((subject) => {
-        res.status(200).json(subject)
+      }).then((course) => {
+        res.status(200).json(course)
       })
     } else {
-      db.Subject.update(
+      db.Course.update(
         {
           id,
           TeacherId,
@@ -107,8 +99,8 @@ class SubjectController {
         },
         { where: { id } },
       )
-        .then((subject) => {
-          res.status(200).json(subject)
+        .then((course) => {
+          res.status(200).json(course)
         })
         .catch(Sequelize.ValidationError, (msg) =>
           res.status(422).json({ message: msg.errors[0].message }),
@@ -122,7 +114,7 @@ class SubjectController {
   }
   static Delete(req, res) {
     const { id } = req.params
-    db.Subject.destroy({ where: { id } })
+    db.Course.destroy({ where: { id } })
       .then((result) => {
         if (result === 0) {
           res.status(404).json({
@@ -150,4 +142,4 @@ class SubjectController {
   }
 }
 
-export default SubjectController
+export default CourseController

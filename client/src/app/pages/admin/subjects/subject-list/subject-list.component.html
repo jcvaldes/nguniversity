@@ -23,9 +23,18 @@
         <div class="mat-elevation-z8">
           <mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear>
             <ng-container matColumnDef="name">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</mat-header-cell>
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Materia</mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
             </ng-container>
+            <ng-container matColumnDef="period">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Cuatrimestre</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.period}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="capacity">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Cupos</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.capacity}}</mat-cell>
+            </ng-container>
+            <ng-container m
             <ng-container matColumnDef="active">
               <mat-header-cell *matHeaderCellDef mat-sort-header>Habilitado</mat-header-cell>
               <mat-cell *matCellDef="let element">

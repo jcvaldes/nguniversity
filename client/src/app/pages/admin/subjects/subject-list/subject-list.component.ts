@@ -23,6 +23,8 @@ export class SubjectListComponent implements OnInit, AfterViewInit {
   dataSource: TableDataSource<Subject>;
   displayedColumns: string[] = [
     'name',
+    'period',
+    'capacity',
     'active',
     'actions',
   ];

@@ -11,6 +11,6 @@ export class SubjectService extends HttpService{
     public http: HttpClient
   ) {
     super(http);
-    this.url = urljoin(environment.apiUrl, '/api/subject');
+    this.url = urljoin(environment.apiUrl, '/api/course');
   }
 }
