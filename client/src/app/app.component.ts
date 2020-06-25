@@ -6,7 +6,7 @@ declare function init_plugins();
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'clinica';
+  title = 'Monllor university';
   ngOnInit() {
     init_plugins();
   }

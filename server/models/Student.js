@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs'
 
 export default (sequelize, DataTypes) => {
   const Student = sequelize.define('Student', {
@@ -7,29 +7,39 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    StudentId: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    CareerId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    // CareerId: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
     // matricula
-    enrollment: { 
+    enrollment: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    genre: { 
+    genre: {
       type: DataTypes.STRING(1),
       allowNull: false,
     },
     birthDate: {
       type: DataTypes.DATE,
       allowNull: false,
-    }     
-  });
+    },
+  }, {timestamps: false})
   Student.associate = (models) => {
-  };
-  return Student;
-};
+    Student.belongsTo(models.User, {
+      foreignKey: 'UserId',
+      targetKey: 'id',
+    })
+    // M:M
+    Student.belongsToMany(models.Course, {
+      through: { model: models.Inscription },
+      as: 'inscriptions',
+      foreignKey: 'StudentId',
+    })
+  }
+  return Student
+}

@@ -13,7 +13,7 @@ import { UsersComponent } from './users.component';
 import { UserListResolverGuard } from './user-list/user-list-resolver.guard';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { RolesModule } from '../roles/roles.module';
-import { SubjectsModule } from '../subjects/subjects.module';
+import { CoursesModule } from '../courses/courses.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { SubjectsModule } from '../subjects/subjects.module';
     PipesModule,
     RouterModule,
     RolesModule,
-    SubjectsModule
+    CoursesModule
   ],
   exports: [],
   providers: [UserService, NotificationService, UserListResolverGuard]

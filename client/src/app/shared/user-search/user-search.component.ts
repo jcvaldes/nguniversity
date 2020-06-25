@@ -11,9 +11,10 @@ import { UserService } from '../../pages/admin/users/user.service';
   styleUrls: ['./user-search.component.scss']
 })
 export class UserSearchComponent
-extends ComboSearchComponent<User> implements OnChanges {
+  extends ComboSearchComponent<User> implements OnChanges {
   selected: string;
   @Input() roles: number[] = [];
+  @Input() placeholder = 'Selecciona';
   @Output() userChanged = new EventEmitter<User[]>();
   constructor(public _userService: UserService) {
     super(_userService, false);

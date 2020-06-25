@@ -2,6 +2,7 @@ import db from '../../models'
 import { Sequelize } from '../../models'
 import Parametrizer from '../../utils/parametrizer'
 import RESPONSES from '../../utils/responses'
+import validRoles  from '../../utils/validRoles'
 const { Op } = Sequelize
 class UsersController {
   static Fetch(req, res) {
@@ -35,22 +36,24 @@ class UsersController {
             : null,
       },
     ]
-    db.User.findAndCountAll({ 
+    db.User.findAndCountAll({
       attributes: attrs,
-      include: [{
-        model: db.Role,
-        attributes: ['id', 'name'],
-        as: 'roles',
-        through: { attributes: [] },
-        where:
-          roles.length > 0
-            ? {
-                [Op.or]: {
-                  id: roles,
-                },
-              }
-            : null,
-      }]
+      include: [
+        {
+          model: db.Role,
+          attributes: ['id', 'name'],
+          as: 'roles',
+          through: { attributes: [] },
+          where:
+            roles.length > 0
+              ? {
+                  [Op.or]: {
+                    id: roles,
+                  },
+                }
+              : null,
+        },
+      ],
     })
       .then((data) => {
         res.status(200).json(Parametrizer.responseOk(data, options))
@@ -107,57 +110,66 @@ class UsersController {
       })
   }
   static Create(req, res) {
-    const { fullname, lastname, email, password, phone, img, roles, categories, schedule } = req.body
-    const is_verified = false
+    const {
+      fullname,
+      lastname,
+      email,
+      password,
+      enrollment,
+      genre,
+      birthDate,
+      img,
+      roles,
+    } = req.body
     const active = true
     db.sequelize
       .transaction({ autocommit: false })
       .then(async (t) => {
+        debugger
         const userModel = await db.User.create(
           {
             fullname,
             lastname,
             email,
             password,
-            phone,
-            is_verified,
             img,
             active,
           },
           { transaction: t },
         )
         userModel.password = ':P'
+        let roleId = validRoles.Alumno
+        switch(roles) {
+          case validRoles.Administrador:
+            roleId = validRoles.Administrador
+            break
+          case validRoles.Profesor:
+            roleId = validRoles.Profesor
+            break
+          default:
+            roleId = validRoles.Alumno
+            break
+        }
+        debugger
         const rolesModel = await db.Role.findAll(
           {
             where: {
               [Op.or]: {
-                id: roles,
+                id: roleId,
               },
             },
           },
           { transaction: t },
         )
+        debugger
+        const studentModel = await db.Student.create({
+          UserId: userModel.id,
+          enrollment,
+          genre,
+          birthDate
+        }, {transaction: t})
         await userModel.setRoles(rolesModel, { transaction: t })
-        if(categories) {
-          const categoriesModel = await db.Category.findAll(
-            {
-              where: {
-                [Op.or]: {
-                  id: categories,
-                },
-              },
-            },
-            { transaction: t },
-          )
-          await userModel.setCategories(categoriesModel, { transaction: t })
-          await db.Schedule.bulkCreate(
-            schedule.map(i => {
-              i.ProfesionalId = userModel.id
-              return i;
-            })
-            , { transaction: t });
-
-        }
+       
         t.commit()
         return userModel
       })

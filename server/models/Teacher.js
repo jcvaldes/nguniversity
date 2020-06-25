@@ -1,17 +1,13 @@
 import * as bcrypt from 'bcryptjs';
 
 export default (sequelize, DataTypes) => {
-  const Student = sequelize.define('Student', {
+  const Teacher = sequelize.define('Teacher', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    TeacherId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    CampusId: {
+    UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -25,7 +21,7 @@ export default (sequelize, DataTypes) => {
     },
     
   });
-  Student.associate = (models) => {
+  Teacher.associate = (models) => {
   };
-  return Student;
+  return Teacher;
 };

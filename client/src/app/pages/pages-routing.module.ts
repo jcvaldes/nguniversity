@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginGuard } from '../services/guards/login.guard';
 import { VerifyTokenGuard } from '../services/guards/verify-token.guard';
 import { AdminGuard } from '../services/guards/admin.guard';
+import { StudentGuard } from '../services/guards/student.guard';
 
 const routes: Routes = [
   {
@@ -20,9 +21,19 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     loadChildren: () => import('./admin/roles/roles.module').then(m => m.RolesModule)
   }, {
-    path: 'subjects',
+    path: 'courses',
     canActivate: [AdminGuard],
-    loadChildren: () => import('./admin/subjects/subjects.module').then(m => m.SubjectsModule)
+    loadChildren: () => import('./admin/courses/courses.module').then(m => m.CoursesModule)
+  },
+  {
+    path: 'students',
+    canActivate: [AdminGuard],
+    loadChildren: () => import('./admin/students/students.module').then(m => m.StudentsModule)
+  },
+  {
+    path: 'inscription',
+    canActivate: [StudentGuard],
+    loadChildren: () => import('./student/inscriptions/inscriptions.module').then(m => m.InscriptionsModule)
   },
   { path: '**', component: DashboardComponent},
 ];

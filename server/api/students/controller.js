@@ -8,8 +8,9 @@ class StudentController {
     let roles = req.query.roles.split(',')
     const attrs = [
       'id',
-      'StudentId',
+      'UserId',
       'enrollment', //matricula
+      'genre',
       'birthDate'
     ]
     req.query.active = undefined

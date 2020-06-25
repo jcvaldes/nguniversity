@@ -79,10 +79,12 @@ function getMenu(roles) {
   if (containsAdminRole(roles) >= 0) {
     menu[1].submenu.push({ titulo: 'Usuarios', url: '/users' });
     menu[1].submenu.push({ titulo: 'Roles', url: '/roles' });
-    menu[1].submenu.push({ titulo: 'Materias', url: '/subjects' });
+    menu[1].submenu.push({ titulo: 'Materias', url: '/courses' });
+    menu[1].submenu.push({ titulo: 'Alumnos', url: '/students' });
+    menu[1].submenu.push({ titulo: 'Inscripción', url: '/inscription' });
   }
   if (containsStudentRole(roles) >= 0) {
-    menu[1].submenu.push({ titulo: 'Materias', url: '/subjects' });
+    menu[1].submenu.push({ titulo: 'Inscripción', url: '/inscription' });
   }
   return menu;
 }

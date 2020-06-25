@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
       lastname: this.form.value.lastname,
       email: this.form.value.email,
       password: this.form.value.password,
-      roles: validRoles.Paciente
+      roles: validRoles.Alumno
     };
     this._userService
       .newUser(user)

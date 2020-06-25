@@ -1,5 +1,4 @@
 import { Role } from '../roles/role.model';
-import { Subject } from '../subjects/subject.model';
 
 export interface IUser {
   fullname: string;

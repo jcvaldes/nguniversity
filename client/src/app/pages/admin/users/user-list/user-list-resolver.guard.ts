@@ -17,14 +17,13 @@ export class UserListResolverGuard implements Resolve<TableDataSource<User>>  {
     const filter: string = route.queryParamMap.get('filter') || '';
     const pageIndex: number = +route.queryParamMap.get('pageIndex') || 0;
     const pageSize: number = +route.queryParamMap.get('pageSize') || 10;
-    debugger
     return this.dataSource.load(
       filter,
       'id',
       'asc',
       pageIndex,
        pageSize,
-       [validRoles.Admin, validRoles.Profesional]).then((data) => {
+       [validRoles.Admin, validRoles.Profesor]).then((data) => {
       return this.dataSource;
     });
   }
