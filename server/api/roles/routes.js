@@ -4,6 +4,7 @@ import mdw from '../../middlewares/authentication';
 
 const app = express();
 app.get('/', [mdw.verifyToken], RolesController.Fetch);
+app.get('/searcher', [mdw.verifyToken], RolesController.Searcher);
 app.get('/:id', [mdw.verifyToken], RolesController.FetchOne);
 app.post('/', [mdw.verifyToken], RolesController.Create);
 app.put('/:id', [mdw.verifyToken], RolesController.Update);

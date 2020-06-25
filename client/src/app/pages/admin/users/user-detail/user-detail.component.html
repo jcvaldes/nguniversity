@@ -82,9 +82,14 @@
       </mat-form-field>
     </div>
     <div class="col-12 col-sm-12 col-md-6">
-      <app-role-search
-        [comboCtrl]="form.get('roles')"
-      ></app-role-search>
+      <input type="hidden" *ngIf="isAdmin" formControlName="role" />
+      <mat-form-field *ngIf="!isAdmin">
+        <mat-select formControlName="role" placeholder="Tipo de usuario" required>
+          <mat-option value="2">Profesor</mat-option>
+          <mat-option value="3">Alumno</mat-option>
+        </mat-select>
+        <mat-error>requerido</mat-error>
+      </mat-form-field>
     </div>
   </div>
   <div class="row">

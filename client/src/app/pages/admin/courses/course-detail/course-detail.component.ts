@@ -19,9 +19,11 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
   CourseSubscription: Subscription = new Subscription();
   form: FormGroup = new FormGroup({
     id: new FormControl(null),
+    TeacherId: new FormControl(null, Validators.required),
     name: new FormControl(null, Validators.required),
     period: new FormControl(null, Validators.required),
     capacity: new FormControl(30, Validators.required),
+    year: new FormControl(null, Validators.required),
     active: new FormControl(true),
   });
   constructor(

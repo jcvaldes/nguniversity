@@ -2,7 +2,7 @@
   <div class="col-lg-9 col-md-12">
     <div class="card box box-info">
       <div class="card-body">
-        <div class="d-flex justify-content-between m-b-10">
+        <div *ngIf="role === 1" class="d-flex justify-content-between m-b-10">
           <button
             color="primary"
             class="btn btn-outline-info waves-effect waves-light d-none d-sm-inline-flex"
@@ -11,7 +11,7 @@
             <mat-icon>add</mat-icon>
             Crear
           </button>
-          <button
+          <button *ngIf="role === 3"
             color="primary"
             class="btn btn-outline-success waves-effect waves-light d-none d-sm-inline-flex"
             (click)="enroll()"
@@ -47,7 +47,7 @@
             matSortDirection="asc"
             matSortDisableClear
           >
-            <ng-container matColumnDef="select">
+            <ng-container *ngIf="role === 3" matColumnDef="select">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
                 Sel
               </mat-header-cell>
@@ -82,7 +82,7 @@
                 {{ element.capacity }}
               </mat-cell>
             </ng-container>
-            <ng-container m <ng-container matColumnDef="active">
+            <ng-container matColumnDef="active">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
                 Habilitado
               </mat-header-cell>
@@ -98,9 +98,9 @@
                 </span>
               </mat-cell>
             </ng-container>
-            <ng-container matColumnDef="actions">
+            <ng-container *ngIf="role === 1" matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef></mat-header-cell>
-              <mat-cell *matCellDef="let row">
+              <mat-cell  *matCellDef="let row">
                 <button
                   mat-icon-button
                   (click)="onEdit(row)"

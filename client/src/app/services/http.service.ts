@@ -33,7 +33,8 @@ export class HttpService {
     sortDirection = 'asc',
     pageNumber = 0,
     pageSize = 0,
-    roles = []
+    roles = [],
+    teacherId = 0
   ): Observable<T> {
     // const mergedUrl =
     //   `${this.url}` +
@@ -51,6 +52,11 @@ export class HttpService {
     if (roles) {
       options.params.updates.push(
         {param: 'roles', value: roles.join(','), op: 's'});
+    }
+    debugger
+    if (teacherId ) {
+      options.params.updates.push(
+        {param: 'teacherId', value: teacherId, op: 's'});
     }
     return this.httpClient
       .get<T>(this.url, options)

@@ -119,7 +119,7 @@ class UsersController {
       genre,
       birthDate,
       img,
-      roles,
+      role,
     } = req.body
     const active = true
     db.sequelize
@@ -138,7 +138,7 @@ class UsersController {
         )
         userModel.password = ':P'
         let roleId = validRoles.Alumno
-        switch(roles) {
+        switch(+role) {
           case validRoles.Administrador:
             roleId = validRoles.Administrador
             break
@@ -152,21 +152,12 @@ class UsersController {
         const rolesModel = await db.Role.findAll(
           {
             where: {
-              [Op.or]: {
-                id: roleId,
-              },
+              id: roleId,
             },
           },
           { transaction: t },
         )
-        const studentModel = await db.Student.create({
-          UserId: userModel.id,
-          enrollment,
-          genre,
-          birthDate
-        }, {transaction: t})
         await userModel.setRoles(rolesModel, { transaction: t })
-       
         t.commit()
         return userModel
       })

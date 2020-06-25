@@ -1,8 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 
 export default (sequelize, DataTypes) => {
-  const validRoles = ['ADMIN_ROLE', 'USER_ROLE', 'GUEST_ROLE']
-
   const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,

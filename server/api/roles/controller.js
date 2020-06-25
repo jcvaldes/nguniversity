@@ -43,6 +43,23 @@ class RolesController {
         res.status(400).json({ message: RESPONSES.DB_CONNECTION_ERROR.message, err })
       });
   }
+  static Searcher(req, res) {
+    const { Op } = Sequelize;
+    const options = Parametrizer.getOptions(req.query, attrs, search);
+    db.Role.findAll({
+      where: {
+        [Op.or]: {
+          id: [2, 3]
+        }
+      },
+    })
+    .then((data) => {
+      res.status(200).json(Parametrizer.responseOk(data, options));
+    })
+    .catch(err => {
+      res.status(400).json({ message: RESPONSES.DB_CONNECTION_ERROR.message, err })
+    });
+  }
   static FetchOne(req, res) {
     const id = +req.params.id;
     db.Role.findOne({

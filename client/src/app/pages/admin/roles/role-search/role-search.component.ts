@@ -6,6 +6,7 @@ import { Role } from '../role.model';
 import _ from 'lodash';
 import { HttpService } from '../../../../services/http.service';
 import { RoleService } from '../role.service';
+import { RoleSearcherService } from './role-search.service';
 
 @Component({
   selector: 'app-role-search',
@@ -15,7 +16,7 @@ import { RoleService } from '../role.service';
 export class RoleSearchComponent extends ComboSearchComponent<Role> {
   selected: string;
   @Output() selectionChange = new EventEmitter();
-  constructor(public _roleService: RoleService) {
+  constructor(public _roleService: RoleSearcherService) {
     super(_roleService, false);
   }
   onSelectionChange(evt) {
@@ -23,7 +24,6 @@ export class RoleSearchComponent extends ComboSearchComponent<Role> {
       return el.id === evt.value[0];
     });
     this.selected = selected[0].name;
-    debugger
     this.selectionChange.emit(evt.value);
   }
 }

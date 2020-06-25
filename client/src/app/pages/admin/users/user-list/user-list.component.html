@@ -9,8 +9,16 @@
             (click)="onCreate()"
           >
             <mat-icon>add</mat-icon>
-            Crear
+            Crear Usuarios
           </button>
+          <button
+          color="primary"
+          class="btn btn-outline-info waves-effect waves-light d-none d-sm-inline-flex"
+          (click)="onCreateAdmin()"
+        >
+          <mat-icon>add</mat-icon>
+          Crear Administrador
+        </button>
 
           <!-- <app-export-fab [options]="FabOptions" [fields]="fieldsColumns" [filter]="filter" [vertical]="true" [fileName]="fileName"></app-export-fab> -->
           <mat-form-field class="search-form-field" floatLabel="never">

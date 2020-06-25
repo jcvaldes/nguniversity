@@ -10,18 +10,13 @@ export default (sequelize, DataTypes) => {
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    genre: { 
-      type: DataTypes.STRING(1),
-      allowNull: false,
-    },
-    birthDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    
-  });
+    },    
+  }, {timestamps: false});
   Teacher.associate = (models) => {
+    Teacher.hasMany(models.Course, {
+      foreignKey: 'TeacherId',
+    });
+
   };
   return Teacher;
 };

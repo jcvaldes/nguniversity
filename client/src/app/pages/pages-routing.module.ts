@@ -5,6 +5,7 @@ import { LoginGuard } from '../services/guards/login.guard';
 import { VerifyTokenGuard } from '../services/guards/verify-token.guard';
 import { AdminGuard } from '../services/guards/admin.guard';
 import { StudentGuard } from '../services/guards/student.guard';
+import { TeacherGuard } from '../services/guards/teacher.guard';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
     path: 'inscription',
     canActivate: [StudentGuard],
     loadChildren: () => import('./student/inscriptions/inscriptions.module').then(m => m.InscriptionsModule)
+  },
+  {
+    path: 'teacher-courses',
+    canActivate: [TeacherGuard],
+    loadChildren: () => import('./teacher/teacher-courses/teacher-courses.module').then(m => m.TeacherCoursesModule)
   },
   { path: '**', component: DashboardComponent},
 ];

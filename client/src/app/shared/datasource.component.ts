@@ -21,13 +21,14 @@ export class TableDataSource<T> implements DataSource<T> {
     sortDirection: string,
     pageIndex: number,
     pageSize: number,
-    roles = []
+    roles = [],
+    teacherId: number = 0
   ) {
     return new Promise((resolve, reject) => {
       this.loadingSubject.next(true);
       this._httpService
         .getAll<T>(
-          filter, sortField, sortDirection, pageIndex, pageSize, roles
+          filter, sortField, sortDirection, pageIndex, pageSize, roles, teacherId
         )
         .pipe(
           catchError(() => of([])),

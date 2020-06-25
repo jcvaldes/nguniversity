@@ -11,23 +11,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // CareerId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    // },
-    // matricula
-    enrollment: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    genre: {
-      type: DataTypes.STRING(1),
-      allowNull: false,
-    },
-    birthDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
   }, {timestamps: false})
   Student.associate = (models) => {
     Student.belongsTo(models.User, {

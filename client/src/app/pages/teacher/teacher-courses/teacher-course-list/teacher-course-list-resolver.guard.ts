@@ -3,12 +3,13 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve, Router }
 import { Observable, EMPTY } from 'rxjs';
 import { TableDataSource } from '../../../../shared/datasource.component';
 import { Course } from '../course.model';
-import { CourseService } from '../course.service';
+import { CourseService } from '../../../admin/courses/course.service';
+import { validRoles } from '../../../../utils/enums';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CourseListResolverGuard implements Resolve<TableDataSource<Course>>  {
+export class TeacherCourseListResolverGuard implements Resolve<TableDataSource<Course>>  {
   private dataSource: TableDataSource<Course>;
   constructor(private _courseService: CourseService, private router: Router) { }
   // tslint:disable-next-line: max-line-length
@@ -18,13 +19,14 @@ export class CourseListResolverGuard implements Resolve<TableDataSource<Course>>
     const filter: string = route.queryParamMap.get('filter') || '';
     const pageIndex: number = +route.queryParamMap.get('pageIndex') || 0;
     const pageSize: number = +route.queryParamMap.get('pageSize') || 10;
-   debugger
     return this.dataSource.load(
       filter,
       'id',
       'asc',
       pageIndex,
-      pageSize
+      pageSize,
+      [validRoles.Profesor],
+      JSON.parse(localStorage.getItem('user')).id
     ).then((data) => {
         return this.dataSource;
       });

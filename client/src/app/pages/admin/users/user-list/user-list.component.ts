@@ -58,7 +58,18 @@ export class UserListComponent implements OnInit, AfterViewInit {
   onCreate() {
     const dialogRef = this.dialog.open(
       UserDetailComponent,
-      this.dialogConfig(),
+      this.dialogConfig({isAdmin: false}),
+    );
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadPage();
+      }
+    });
+  }
+  onCreateAdmin() {
+    const dialogRef = this.dialog.open(
+      UserDetailComponent,
+      this.dialogConfig({isAdmin: true}),
     );
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {

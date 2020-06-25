@@ -30,5 +30,8 @@ export class UserService extends HttpService{
       })
     );
   }
+  getRole() {
+    return JSON.parse(localStorage.getItem('user')).roles[0];
+  }
 
 }

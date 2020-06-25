@@ -6,6 +6,10 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true,
     },
+    TeacherId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: Sequelize.STRING(30),
       allowNull: false,
@@ -16,6 +20,10 @@ module.exports = {
       allowNull: false,
     },
     capacity: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    year: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },

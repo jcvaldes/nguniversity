@@ -1,44 +1,50 @@
-export default (sequelize, Sequelize) => {
+export default (sequelize, DataTypes) => {
   const Course = sequelize.define('Course', {
     id: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
+    TeacherId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     name: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
     period: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     capacity: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    year: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     active: {
-      type: Sequelize.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
     createdAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     },
     updatedAt: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     },
   });
   Course.associate = (models) => {
-    // M:1
-    Course.belongsTo(models.User, {
-      as: 'users',
-      foreignKey: 'CourseId',
-    });
+    // // M:1
+    // Course.belongsTo(models.User, {
+    //   as: 'users',
+    //   foreignKey: 'CourseId',
+    // });
     // M:M
-    Course.belongsToMany(models.User, {
-      through: { model: models.TeacherCourse },
-      as: 'teachers',
+    Course.belongsTo(models.Teacher, {
       foreignKey: 'CourseId',
     });
   };

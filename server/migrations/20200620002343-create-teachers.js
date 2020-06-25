@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Students', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Teachers', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -9,7 +9,7 @@ module.exports = {
     UserId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-    },
+    }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Students'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Teachers'),
 };

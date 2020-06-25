@@ -31,7 +31,7 @@ import { CourseListResolverGuard } from './course-list/course-list-resolver.guar
     CourseSearchComponent,
     CourseListComponent
   ],
-  providers: [CourseService, CourseListResolverGuard],
+  providers: [CourseListResolverGuard],
   entryComponents: []
 })
 export class CoursesModule {}

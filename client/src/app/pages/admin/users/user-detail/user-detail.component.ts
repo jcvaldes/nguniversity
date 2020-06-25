@@ -8,6 +8,7 @@ import { NotificationService } from '../../../../services/notification.service';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Role } from '../../roles/role.model';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,24 +18,32 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class UserDetailComponent implements OnInit, OnDestroy {
   user: User;
+  role: Role;
+  isAdmin = false;
   userSubscription: Subscription = new Subscription();
-  form: FormGroup = new FormGroup({
-    id: new FormControl(null),
-    fullname: new FormControl('', Validators.required),
-    lastname: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl(null, Validators.required),
-    confirmPassword: new FormControl(null, Validators.required),
-    roles: new FormControl([], Validators.required),
-    active: new FormControl(true),
-  });
+  form: FormGroup; 
   constructor(
     private notificationService: NotificationService,
     private _userService: UserService,
     private dialogRef: MatDialogRef<UserDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router
-  ) {}
+  ) {
+    if (data ) {
+      this.isAdmin = data.isAdmin;
+    }
+    this.role = _userService.getRole();
+    this.form = new FormGroup({
+      id: new FormControl(null),
+      fullname: new FormControl('', Validators.required),
+      lastname: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl(null, Validators.required),
+      confirmPassword: new FormControl(null, Validators.required),
+      role: new FormControl(this.isAdmin ? 1 : null, Validators.required),
+      active: new FormControl(true),
+    });
+  }
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }

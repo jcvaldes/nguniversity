@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,22 +14,24 @@ import { HttpService } from '../../../../services/http.service';
 import { UserService } from '../../users/user.service';
 import { NotificationService } from '../../../../services/notification.service';
 import { SelectionModel } from '@angular/cdk/collections';
+import { validRoles } from '../../../../utils/enums';
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit, AfterViewInit {
+  @Input() role;
   @Output() coursesEnrolled: EventEmitter<Course[]> = new EventEmitter<Course[]>();
   dataSource: TableDataSource<Course>;
   selected: Course[] = [];
   displayedColumns: string[] = [
-    'select',
+
     'name',
     'period',
     'capacity',
     'active',
-    'actions',
+
   ];
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -43,6 +45,14 @@ export class CourseListComponent implements OnInit, AfterViewInit {
     private notificationService: NotificationService,
     private _httpService: HttpService,
   ) {
+    this.role = this.role || 1;
+    debugger
+    if (this.role === validRoles.Admin) {
+      this.displayedColumns.push('actions');
+    }
+    if (this.role === validRoles.Alumno) {
+      this.displayedColumns.unshift('select');
+    }
     _httpService.url = '/api/course';
     // this.dataSource = this.route.snapshot.data['categories'];
     this.route.data.subscribe((data: { courses: TableDataSource<Course> }) => {

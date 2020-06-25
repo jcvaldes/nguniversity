@@ -5,17 +5,35 @@ import RESPONSES from '../../utils/responses'
 import _ from 'lodash'
 
 class CourseController {
-  static Fetch(req, res) {
+  static async Fetch(req, res) {
     const { Op } = Sequelize
     const attrs = ['id', 'name', 'period', 'capacity', 'active']
     const search = ['name']
-    const { filter } = req.query
+    let { filter, teacherId } = req.query
+    const teacherModel = await db.Teacher.findOne({
+      UserId: +teacherId,
+    })
     const options = Parametrizer.getOptions(req.query, attrs, search)
     if (filter) {
       options.where.name = {
         [Op.like]: `%${filter}%`,
       }
     }
+    // options.include = [
+    //   {
+    //     model: db.Teacher,
+    //     attributes: ['id', 'UserId'],
+    //     as: 'teachers',
+    //     through: { attributes: [] },
+    //     where:
+    //       teacherId > 0
+    //         ? {
+    //               UserId: teacherModel.id,
+
+    //           }
+    //         : null,
+    //   },
+    // ]
     db.Course.findAndCountAll(options)
       .then((data) => {
         res.status(200).json(Parametrizer.responseOk(data, options))
@@ -59,13 +77,26 @@ class CourseController {
           .json({ message: RESPONSES.DB_CONNECTION_ERROR.message }),
       )
   }
-  static Create(req, res) {
-    const { name, description, active } = req.body
-    db.Course.create(req.body)
-      .then((Course) => {
+  static async Create(req, res) {
+    const { capacity, name, period, year, TeacherId,  } = req.body
+    const teacherModel = await db.Teacher.findOne({
+      where: {
+        UserId: TeacherId,
+      },
+    })
+
+    db.Course.create({
+      TeacherId: teacherModel.id,
+      name,
+      period,
+      capacity,
+      year,
+      active: true
+    })
+      .then((course) => {
         res.status(200).json({
           ok: true,
-          Course,
+          course,
         })
       })
       .catch(Sequelize.ValidationError, (msg) => {
