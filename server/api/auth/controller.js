@@ -94,7 +94,7 @@ function containsAdminRole(roles) {
 }
 
 function containsStudentRole(roles) {
-  return roles.findIndex(role => role.name === "Student");
+  return roles.findIndex(role => role.name === "Alumno");
 }
 export default AuthController;
 

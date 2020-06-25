@@ -59,27 +59,34 @@ class InscriptionController {
           .json({ message: RESPONSES.DB_CONNECTION_ERROR.message }),
       )
   }
-  static Create(req, res) {
-    let courses = req.body;
-    courses = courses.map(c => {
-      return {
-        StudentId: req.user.id,
-        CourseId: c
+  static async Create(req, res) {
+    let courses = req.body
+    const studentModel = await db.Student.findOne({
+      where: {
+        UserId: req.user.id,
       }
-    }) 
-    db.Inscription.bulkCreate(courses, { returning: true })
-      .then((inscriptions) => {
-        res.status(200).json({
-          ok: true,
-          inscriptions,
-        })
+    })
+    studentModel.setInscriptions(courses).then((inscriptions) => {
+      debugger
+      res.status(200).json({
+        ok: true,
+        inscriptions,
       })
-      .catch(Sequelize.ValidationError, (msg) => {
-        res.status(422).json({ message: msg.original.message })
-      })
-      .catch((err) => {
-        res.status(400).json({ message: RESPONSES.DB_CONNECTION_ERROR.message })
-      })
+    }).catch((err) => {
+      res.status(400).json({ message: RESPONSES.DB_CONNECTION_ERROR.message })
+    })
+    debugger
+    // db.Inscription.bulkCreate(courses, { returning: true })
+    //   .then((inscriptions) => {
+    //     res.status(200).json({
+    //       ok: true,
+    //       inscriptions,
+    //     })
+    //   })
+    //   .catch(Sequelize.ValidationError, (msg) => {
+    //     res.status(422).json({ message: msg.original.message })
+    //   })
+     
   }
   static Update(req, res) {
     const { TeacherId, name, quarter, spaces, active } = req.body
@@ -137,5 +144,4 @@ class InscriptionController {
       )
   }
 }
-
 export default InscriptionController

@@ -125,7 +125,6 @@ class UsersController {
     db.sequelize
       .transaction({ autocommit: false })
       .then(async (t) => {
-        debugger
         const userModel = await db.User.create(
           {
             fullname,
@@ -150,7 +149,6 @@ class UsersController {
             roleId = validRoles.Alumno
             break
         }
-        debugger
         const rolesModel = await db.Role.findAll(
           {
             where: {
@@ -161,7 +159,6 @@ class UsersController {
           },
           { transaction: t },
         )
-        debugger
         const studentModel = await db.Student.create({
           UserId: userModel.id,
           enrollment,
