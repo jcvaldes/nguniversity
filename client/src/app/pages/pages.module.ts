@@ -13,11 +13,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../../environments/environment.prod';
-import { UploadFirebaseComponent } from '../shared/firebase/upload/upload-firebase.component';
+
 @NgModule({
   declarations: [
     DashboardComponent,
-    UploadFirebaseComponent,
+ 
     PagesComponent
   ],
   imports: [
@@ -32,7 +32,7 @@ import { UploadFirebaseComponent } from '../shared/firebase/upload/upload-fireba
     AngularFireStorageModule,
     AngularFireAuthModule,
   ],
-  exports: [DashboardComponent, UploadFirebaseComponent],
+  exports: [DashboardComponent],
   providers: [AngularFireAuth, AngularFirestore]
 })
 export class PagesModule { }
