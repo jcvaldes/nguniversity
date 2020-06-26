@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { throwError } from 'rxjs';
 @Injectable()
 export class UserService extends HttpService{
+  url: string;
   constructor(
     public http: HttpClient
   ) {
@@ -16,19 +17,19 @@ export class UserService extends HttpService{
     this.url = urljoin(environment.apiUrl, '/api/user');
   }
   newUser(user) {
-    return this.add(user)
-    .pipe(
-      map((response: any) => {
-        Swal.fire('Usuario creado', user.email, 'success');
-        return response.user;
-      })
-    )
-    .pipe(
-      catchError(err => {
-        Swal.fire('Error', err, 'error');
-        return throwError(err);
-      })
-    );
+    // return this.add(user)
+    // .pipe(
+    //   map((response: any) => {
+    //     Swal.fire('Usuario creado', user.email, 'success');
+    //     return response.user;
+    //   })
+    // )
+    // .pipe(
+    //   catchError(err => {
+    //     Swal.fire('Error', err, 'error');
+    //     return throwError(err);
+    //   })
+    // );
   }
   getRole() {
     return JSON.parse(localStorage.getItem('user')).roles[0];

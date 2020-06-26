@@ -4,6 +4,7 @@ import { ComboSearchComponent } from '../combo-search/combo-search.component';
 import { User } from '../../pages/admin/users/user.model';
 import _ from 'lodash';
 import { UserService } from '../../pages/admin/users/user.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-search',
@@ -16,8 +17,10 @@ export class UserSearchComponent
   @Input() roles: number[] = [];
   @Input() placeholder = 'Selecciona';
   @Output() userChanged = new EventEmitter<User[]>();
+  url: string = environment.apiUrl;
   constructor(public _userService: UserService) {
-    super(_userService, false);
+    super(_userService, `${environment.apiUrl}/api/user`);
+    this.url = `${environment.apiUrl}/api/user`;
   }
   onLoad(filter = '') {
     debugger
@@ -25,7 +28,7 @@ export class UserSearchComponent
       return;
     }
     return this.service
-      .getAll<User>(filter, 'id', 'asc', 0, 0, this.roles)
+      .get<User>(this.url)
       .subscribe((response: any) => {
         this.payload = response.payload;
         this.filteredData.next(this.payload.slice());

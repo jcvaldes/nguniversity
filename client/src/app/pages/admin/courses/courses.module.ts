@@ -8,8 +8,6 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 import { CourseListComponent } from './course-list/course-list.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { CourseSearchComponent } from './course-search/course-search.component';
-import { CourseService } from './course.service';
-import { CourseListResolverGuard } from './course-list/course-list-resolver.guard';
 
 
 @NgModule({
@@ -31,7 +29,7 @@ import { CourseListResolverGuard } from './course-list/course-list-resolver.guar
     CourseSearchComponent,
     CourseListComponent
   ],
-  providers: [CourseListResolverGuard],
+  providers: [],
   entryComponents: []
 })
 export class CoursesModule {}

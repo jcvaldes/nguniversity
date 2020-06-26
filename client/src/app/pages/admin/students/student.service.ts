@@ -13,22 +13,22 @@ export class StudentService extends HttpService{
     public http: HttpClient
   ) {
     super(http);
-    this.url = urljoin(environment.apiUrl, '/api/user');
+    // this.url = urljoin(environment.apiUrl, '/api/user');
   }
   newStudent(user) {
-    return this.add(user)
-    .pipe(
-      map((response: any) => {
-        Swal.fire('Estudiante creado', user.email, 'success');
-        return response.user;
-      })
-    )
-    .pipe(
-      catchError(err => {
-        Swal.fire('Error', err, 'error');
-        return throwError(err);
-      })
-    );
+    // return this.add(user)
+    // .pipe(
+    //   map((response: any) => {
+    //     Swal.fire('Estudiante creado', user.email, 'success');
+    //     return response.user;
+    //   })
+    // )
+    // .pipe(
+    //   catchError(err => {
+    //     Swal.fire('Error', err, 'error');
+    //     return throwError(err);
+    //   })
+    // );
   }
 
 }

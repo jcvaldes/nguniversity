@@ -18,7 +18,7 @@
       <input type="hidden" formControlName="id" />
       <mat-form-field>
         <input
-          formControlName="fullname"
+          formControlName="firstname"
           matInput
           placeholder="Nombre/s"
           required
@@ -84,7 +84,11 @@
     <div class="col-12 col-sm-12 col-md-6">
       <input type="hidden" *ngIf="isAdmin" formControlName="role" />
       <mat-form-field *ngIf="!isAdmin">
-        <mat-select formControlName="role" placeholder="Tipo de usuario" required>
+        <mat-select
+          formControlName="role"
+          placeholder="Tipo de usuario"
+          required
+        >
           <mat-option value="2">Profesor</mat-option>
           <mat-option value="3">Alumno</mat-option>
         </mat-select>
@@ -93,25 +97,49 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-sm-12 col-md-6">
-      <mat-slide-toggle formControlName="active" ngchecked="[active]">
-        Habilitado
-      </mat-slide-toggle>
+    <div class="col-12">
+      <div class="form-group">
+        <h5>Seleccionar image:</h5>
+        <input type="file" accept=".png, .jpg" (change)="onChange($event)" />
+      </div>
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped bg-success"
+          role="progressbar"
+          [style.width]="(uploadPercent | async) + '%'"
+        >
+          <span class="progressText" *ngIf="urlImage | async">
+            Ok!!
+          </span>
+        </div>
+      </div>
+      <br />
+      <input #imageUser type="hidden" [value]="urlImage | async" />
     </div>
   </div>
-
   <div class="row m-t-10">
     <div class="col-12">
       <div class="button-row text-right">
         <button
+          *ngIf="!loading"
           mat-raised-button
           color="primary"
           (click)="onSubmit()"
           type="submit"
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || !file"
         >
           <mat-icon>save</mat-icon>
           Guardar
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          *ngIf="loading"
+          [disabled]="form.invalid || file"
+          type="button"
+        >
+          <i class="fa fa-spin fa-sync"></i>
+          Espere...
         </button>
         <button mat-button color="warn" (click)="onClear()">Cancelar</button>
       </div>

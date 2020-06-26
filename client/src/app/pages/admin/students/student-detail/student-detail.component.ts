@@ -20,7 +20,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   studentSubscription: Subscription = new Subscription();
   form: FormGroup = new FormGroup({
     id: new FormControl(null),
-    fullname: new FormControl(null, Validators.required),
+    firstname: new FormControl(null, Validators.required),
     lastname: new FormControl(null, Validators.required),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.required),
@@ -49,30 +49,30 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
     if (this.form.valid) {
-      if (!this.form.get('id').value) {
-        this._studentService.add<Student>(this.form.value).subscribe(
-          () => {
-            this.onClose(true);
-            this.notificationService.success(':: El usuario ha sido creado');
-            this.router.navigate(['/students'])
-          },
-          (err) => {
-            this.notificationService.error(`:: ${err}`);
-          },
-        );
-      } else {
-        this._studentService.update<Student>(this.form.value).subscribe(
-          () => {
-            this.onClose(true);
-            this.notificationService.success(
-              ':: El usuario ha sido actualizado',
-            );
-          },
-          (err) => {
-            this.notificationService.error(`:: ${err}`);
-          },
-        );
-      }
+      // if (!this.form.get('id').value) {
+      //   this._studentService.add<Student>(this.form.value).subscribe(
+      //     () => {
+      //       this.onClose(true);
+      //       this.notificationService.success(':: El usuario ha sido creado');
+      //       this.router.navigate(['/students'])
+      //     },
+      //     (err) => {
+      //       this.notificationService.error(`:: ${err}`);
+      //     },
+      //   );
+      // } else {
+      //   this._studentService.update<Student>(this.form.value).subscribe(
+      //     () => {
+      //       this.onClose(true);
+      //       this.notificationService.success(
+      //         ':: El usuario ha sido actualizado',
+      //       );
+      //     },
+      //     (err) => {
+      //       this.notificationService.error(`:: ${err}`);
+      //     },
+      //   );
+      // }
     }
   }
   initializeFormGroup() {
@@ -83,11 +83,11 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     });
   }
   populateForm(data) {
-    this.studentSubscription = this._studentService
-      .getSingle<Student>(data.id)
-      .subscribe((res: any) => {
-        this.student = res.payload;
-      });
+    // this.studentSubscription = this._studentService
+    //   .getSingle<Student>(data.id)
+    //   .subscribe((res: any) => {
+    //     this.student = res.payload;
+    //   });
   }
   onSelectionChange() {
   }

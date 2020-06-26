@@ -10,8 +10,8 @@ import { StudentDetailComponent } from '../student-detail/student-detail.compone
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../../services/notification.service';
 import { StudentService } from '../student.service';
-import { TableDataSource } from '../../../../shared/datasource.component';
 import { Student } from '../student.model';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -20,10 +20,10 @@ import { Student } from '../student.model';
   styleUrls: ['./student-list.component.scss']
 })
 export class StudentListComponent implements OnInit, AfterViewInit {
-  dataSource: TableDataSource<Student>;
+  dataSource: MatTableDataSource<Student>;
   displayedColumns: string[] = [
     'img',
-    'fullname',
+    'firstname',
     'lastname',
     'email',
     'roles',
@@ -43,18 +43,10 @@ export class StudentListComponent implements OnInit, AfterViewInit {
   ) {
     // _studentService.url = '/api/student';
     // this.dataSource = this.route.snapshot.data['students'];
-    this.route.data.subscribe((data: {students: TableDataSource<Student>}) => {
-      this.dataSource = data.students;
-    });
+
   }
 
-  ngOnInit() {
-    // this.dataSource = this.route.snapshot.data['students'];
-
-    this.filter = '';
-    // this.paginator._intl.itemsPerPageLabel = 'Ítems por página: ';
-    // this.paginator._intl.getRangeLabel = this.spanishRangeLabel;
-  }
+  ngOnInit() {}
   onCreate() {
     const dialogRef = this.dialog.open(
       StudentDetailComponent,
@@ -76,37 +68,37 @@ export class StudentListComponent implements OnInit, AfterViewInit {
     });
   }
   onDelete(id) {
-    Swal.fire({
-      title: '¿Está seguro?',
-      text: 'Estás a punto de desactivar un Estudiante',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, Desactivar!',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.value) {
-        this._studentService.delete<Student>(id).subscribe(
-          () => {
-            this.notificationService.success(
-              'El usuario seleccionado ha sido Eliminado',
-            );
-            debugger
-            this.loadPage();
-          },
-          (err) => {
-            console.log(err);
-            // Swal.fire({
-            //   title: 'Reglas de Validación',
-            //   text: err,
-            //   icon: 'error',
-            //   showConfirmButton: false,
-            //   timer: 2000,
-            //   animation: false,
-            // });
-          },
-        );
-      }
-    });
+    // Swal.fire({
+    //   title: '¿Está seguro?',
+    //   text: 'Estás a punto de desactivar un Estudiante',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Sí, Desactivar!',
+    //   cancelButtonText: 'No',
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this._studentService.delete<Student>(id).subscribe(
+    //       () => {
+    //         this.notificationService.success(
+    //           'El usuario seleccionado ha sido Eliminado',
+    //         );
+    //         debugger
+    //         this.loadPage();
+    //       },
+    //       (err) => {
+    //         console.log(err);
+    //         // Swal.fire({
+    //         //   title: 'Reglas de Validación',
+    //         //   text: err,
+    //         //   icon: 'error',
+    //         //   showConfirmButton: false,
+    //         //   timer: 2000,
+    //         //   animation: false,
+    //         // });
+    //       },
+    //     );
+    //   }
+    // });
   }
   onSearchClear() {
     if (this.input.nativeElement.value.length > 0) {

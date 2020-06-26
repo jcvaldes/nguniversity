@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
     this.form = new FormGroup(
       {
-        fullname: new FormControl(null, Validators.required),
+        firstname: new FormControl(null, Validators.required),
         lastname: new FormControl(null, Validators.required),
         email: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, Validators.required),
@@ -47,14 +47,6 @@ export class RegisterComponent implements OnInit {
       },
       { validators: this.comparePasswords('password', 'confirmPassword') }
     );
-
-    this.form.setValue({
-      fullname: '',
-      lastname: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    });
   }
 
   register() {
@@ -64,15 +56,15 @@ export class RegisterComponent implements OnInit {
     // console.log(this.form.valid);
     // console.log(this.form.value);
     const user = {
-      fullname: this.form.value.fullname,
+      firstname: this.form.value.firstname,
       lastname: this.form.value.lastname,
       email: this.form.value.email,
       password: this.form.value.password,
       roles: validRoles.Alumno
     };
-    this._userService
-      .newUser(user)
-      .subscribe(() => this.router.navigate(['/login']),
-     );
+    // this._userService
+    //   .newUser(user)
+    //   .subscribe(() => this.router.navigate(['/login']),
+    //  );
   }
 }

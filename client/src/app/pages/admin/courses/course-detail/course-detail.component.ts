@@ -6,7 +6,8 @@ import urlJoin from 'url-join';
 import { Subscription } from 'rxjs';
 import { Course } from '../course.model';
 import { NotificationService } from '../../../../services/notification.service';
-import { CourseService } from '../course.service';
+import { HttpService } from '../../../../services/http.service';
+
 
 declare var $: any;
 @Component({
@@ -30,7 +31,7 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private dialogRef: MatDialogRef<CourseDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _httpService: CourseService,
+    private _httpService: HttpService,
   ) {
     if (data) {
       this.populateForm(data);
@@ -47,31 +48,31 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     this.dialogRef.close(refresh);
   }
   onSubmit() {
-    if (this.form.valid) {
-      if (!this.form.get('id').value) {
-        this._httpService.add<Course>(this.form.value).subscribe(
-          (resp: any) => {
-            this.onClose(true);
-            this.notificationService.success(':: La materia ha sido creada');
-          },
-          (err) => {
-            this.notificationService.error(`:: ${err}`);
-          },
-        );
-      } else {
-        this._httpService.update<Course>(this.form.value).subscribe(
-          (Course) => {
-            this.onClose(true);
-            this.notificationService.success(
-              ':: La especialidad ha sido actualizado',
-            );
-          },
-          (err) => {
-            this.notificationService.error(`:: ${err}`);
-          },
-        );
-      }
-    }
+    // if (this.form.valid) {
+    //   if (!this.form.get('id').value) {
+    //     this._httpService.add<Course>(this.form.value).subscribe(
+    //       (resp: any) => {
+    //         this.onClose(true);
+    //         this.notificationService.success(':: La materia ha sido creada');
+    //       },
+    //       (err) => {
+    //         this.notificationService.error(`:: ${err}`);
+    //       },
+    //     );
+    //   } else {
+    //     this._httpService.update<Course>(this.form.value).subscribe(
+    //       (Course) => {
+    //         this.onClose(true);
+    //         this.notificationService.success(
+    //           ':: La especialidad ha sido actualizado',
+    //         );
+    //       },
+    //       (err) => {
+    //         this.notificationService.error(`:: ${err}`);
+    //       },
+    //     );
+    //   }
+    // }
   }
   initializeFormGroup() {
     this.form.setValue({
@@ -81,13 +82,13 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
     });
   }
   populateForm(data) {
-    this.CourseSubscription = this._httpService
-      .getSingle<Course>(data.id)
-      .subscribe((res: any) => {
-        this.Course = res.payload;
-        this.form.get('id').setValue(this.Course.id);
-        this.form.get('name').setValue(this.Course.name);
-        this.form.get('active').setValue(this.Course.active);
-      }, err => this.notificationService.error(`:: ${err}`));
+    // this.CourseSubscription = this._httpService
+    //   .getSingle<Course>(data.id)
+    //   .subscribe((res: any) => {
+    //     this.Course = res.payload;
+    //     this.form.get('id').setValue(this.Course.id);
+    //     this.form.get('name').setValue(this.Course.name);
+    //     this.form.get('active').setValue(this.Course.active);
+    //   }, err => this.notificationService.error(`:: ${err}`));
   }
 }

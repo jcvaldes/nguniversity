@@ -1,20 +1,24 @@
+import { environment } from './../../../../environments/environment';
+import { HttpService } from './../../../services/http.service';
 import {
   Component,
   OnInit,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { InscriptionService } from './inscription.service';
+
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-inscriptions',
   templateUrl: './inscriptions.component.html'
 })
 export class InscriptionsComponent implements OnInit {
-  constructor(public _inscriptionService: InscriptionService) {}
+  url: string;
+  constructor(public _httpService: HttpService) {
+    this.url = `${environment.apiUrl}/api/inscription`;
+  }
   ngOnInit() {}
   coursesEnrolled(evt) {
     const courses = evt.map(c => c.id);
-    this._inscriptionService.add(courses).subscribe(data => {
+    this._httpService.post(this.url, courses).subscribe(data => {
       Swal.fire(
         'Inscripción',
         'Felicitaciones, se ha aprobado tu inscripción',
@@ -26,6 +30,6 @@ export class InscriptionsComponent implements OnInit {
         err,
         'error'
       );
-    })
+    });
   }
 }

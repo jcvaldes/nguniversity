@@ -75,7 +75,7 @@ npx sequelize-cli db:seed:undo:all
 
 ## Crear modelos
 ```
-npx sequelize-cli model:generate --name User --attributes fullname:string,lastname:string
+npx sequelize-cli model:generate --name User --attributes firstname:string,lastname:string
 ```
 
 ## Enviar Mails para verificar cuenta con nodemailer

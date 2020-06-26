@@ -8,32 +8,11 @@ class CourseController {
   static async Fetch(req, res) {
     const { Op } = Sequelize
     const attrs = ['id', 'name', 'period', 'capacity', 'active']
-    const search = ['name']
-    let { filter, teacherId } = req.query
+    let { teacherId } = req.query
     const teacherModel = await db.Teacher.findOne({
       UserId: +teacherId,
     })
-    const options = Parametrizer.getOptions(req.query, attrs, search)
-    if (filter) {
-      options.where.name = {
-        [Op.like]: `%${filter}%`,
-      }
-    }
-    // options.include = [
-    //   {
-    //     model: db.Teacher,
-    //     attributes: ['id', 'UserId'],
-    //     as: 'teachers',
-    //     through: { attributes: [] },
-    //     where:
-    //       teacherId > 0
-    //         ? {
-    //               UserId: teacherModel.id,
-
-    //           }
-    //         : null,
-    //   },
-    // ]
+    const options = Parametrizer.getOptions(req.query, attrs, search)  
     db.Course.findAndCountAll(options)
       .then((data) => {
         res.status(200).json(Parametrizer.responseOk(data, options))
@@ -90,8 +69,7 @@ class CourseController {
       name,
       period,
       capacity,
-      year,
-      active: true
+      year
     })
       .then((course) => {
         res.status(200).json({

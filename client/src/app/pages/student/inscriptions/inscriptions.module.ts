@@ -5,11 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../shared/material.module';
 import { InscriptionsComponent } from './inscriptions.component';
-
 import { SharedModule } from '../../../shared/shared.module';
-
-import { InscriptionService } from './inscription.service';
-
 
 @NgModule({
   imports: [
@@ -27,7 +23,7 @@ import { InscriptionService } from './inscription.service';
   exports: [
 
   ],
-  providers: [InscriptionService],
+  providers: [],
   entryComponents: []
 })
 export class InscriptionsModule { }

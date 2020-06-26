@@ -18,16 +18,14 @@ export abstract class ComboSearchComponent<T> implements OnDestroy {
   public payload: any;
   constructor(
     public service: HttpService,
-    public isServerSide = false
+    public url: string
   ) {
-    if (!isServerSide) {
-      this.onLoad();
+      this.onLoad(url);
       this.onChange();
-    }
   }
-  protected onLoad(filter = '') {
+  protected onLoad(url: string) {
     return this.service
-      .getAll<T>(filter, 'id', 'asc', 0, 0)
+      .get<T>(url)
       .subscribe((response: any) => {
         this.payload = response.payload;
         this.filteredData.next(this.payload.slice());

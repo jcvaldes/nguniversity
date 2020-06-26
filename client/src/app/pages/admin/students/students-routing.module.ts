@@ -4,7 +4,6 @@ import { StudentsComponent } from './students.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { VerifyTokenGuard } from '../../../services/guards/verify-token.guard';
-import { StudentListResolverGuard } from './student-list/student-list-resolver.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +12,7 @@ const routes: Routes = [
     canActivateChild: [VerifyTokenGuard],
     data: { titulo: 'Gestión de Alumnos' },
     children: [
-      { path: '', component: StudentListComponent, runGuardsAndResolvers: 'always', resolve: { students: StudentListResolverGuard } },
+      { path: '', component: StudentListComponent },
       { path: 'new', component: StudentDetailComponent },
       { path: ':id', component: StudentDetailComponent }
     ]

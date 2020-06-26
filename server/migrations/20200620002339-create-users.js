@@ -7,7 +7,7 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true      
     },
-    fullname: {
+    firstname: {
       type: Sequelize.STRING(50),
       allowNull: false
     },
@@ -25,25 +25,9 @@ module.exports = {
       type: Sequelize.STRING(100),
       allowNull: false,
     },
-    // is_verified: {
-    //   type: Sequelize.BOOLEAN,
-    //   allowNull: false,
-    // },
     img: {
-      type: Sequelize.STRING(100),
+      type: Sequelize.STRING(255),
       allowNull: true,
-    },
-    // reset_password_token: {
-    //   type: Sequelize.STRING(100),
-    //   allowNull: true,
-    // },
-    // reset_password_expires: {
-    //   type: Sequelize.DATE,
-    //   allowNull: true,
-    // },
-    active: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
     },
     createdAt: {
       allowNull: false,

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public _authService: AuthService,
     private router: Router,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     init_plugins();
@@ -49,7 +49,6 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
   private handleError(err) {
-    debugger
     if (err.error.errors) {
       Swal.fire('Error', err.error.errors, 'error');
     } else {

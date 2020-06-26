@@ -46,7 +46,7 @@ class NoteController {
       })
   }
   static FetchOne(req, res) {
-    const attrs = ['id', 'fullname', 'lastname', 'email']
+    const attrs = ['id', 'firstname', 'lastname', 'email']
     const id = +req.params.id
     db.Note.findOne({
       where: {
@@ -88,7 +88,7 @@ class NoteController {
       })
   }
   static Create(req, res) {
-    const { fullname, lastname, email, password, phone, img, roles, categories, schedule } = req.body
+    const { firstname, lastname, email, password, phone, img, roles, categories, schedule } = req.body
     const is_verified = false
     const active = true
     db.sequelize
@@ -96,7 +96,7 @@ class NoteController {
       .then(async (t) => {
         const NoteModel = await db.Note.create(
           {
-            fullname,
+            firstname,
             lastname,
             email,
             password,
@@ -155,11 +155,11 @@ class NoteController {
       })
   }
   static Update(req, res) {
-    const { fullname, lastname, email, password, phone, img } = req.body
+    const { firstname, lastname, email, password, phone, img } = req.body
     const { id } = req.params
     db.Note.update(
       {
-        fullname,
+        firstname,
         lastname,
         email,
         password,

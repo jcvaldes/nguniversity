@@ -47,7 +47,7 @@ class StudentController {
       })
   }
   static FetchOne(req, res) {
-    const attrs = ['id', 'fullname', 'lastname', 'email']
+    const attrs = ['id', 'firstname', 'lastname', 'email']
     const id = +req.params.id
     db.Student.findOne({
       where: {
@@ -89,7 +89,7 @@ class StudentController {
       })
   }
   static Create(req, res) {
-    const { fullname, lastname, email, password, phone, img, roles, categories, schedule } = req.body
+    const { firstname, lastname, email, password, phone, img, roles, categories, schedule } = req.body
     const is_verified = false
     const active = true
     db.sequelize
@@ -97,7 +97,7 @@ class StudentController {
       .then(async (t) => {
         const StudentModel = await db.Student.create(
           {
-            fullname,
+            firstname,
             lastname,
             email,
             password,
@@ -156,11 +156,11 @@ class StudentController {
       })
   }
   static Update(req, res) {
-    const { fullname, lastname, email, password, phone, img } = req.body
+    const { firstname, lastname, email, password, phone, img } = req.body
     const { id } = req.params
     db.Student.update(
       {
-        fullname,
+        firstname,
         lastname,
         email,
         password,

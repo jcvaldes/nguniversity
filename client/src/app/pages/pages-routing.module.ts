@@ -18,10 +18,6 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     loadChildren: () => import('./admin/users/users.module').then(m => m.UsersModule)
   }, {
-    path: 'roles',
-    canActivate: [AdminGuard],
-    loadChildren: () => import('./admin/roles/roles.module').then(m => m.RolesModule)
-  }, {
     path: 'courses',
     canActivate: [AdminGuard],
     loadChildren: () => import('./admin/courses/courses.module').then(m => m.CoursesModule)

@@ -1,4 +1,3 @@
-import { TeacherCourseListResolverGuard } from './teacher-course-list/teacher-course-list-resolver.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -16,9 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: TeacherCourseListComponent,
-        runGuardsAndResolvers: 'always',
-        resolve: { courses: TeacherCourseListResolverGuard }
+        component: TeacherCourseListComponent
       }
     ]
   }

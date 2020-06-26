@@ -24,7 +24,7 @@ import { UserSearchComponent } from './user-search/user-search.component';
     PipesModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     HeaderComponent,

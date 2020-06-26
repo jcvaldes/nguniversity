@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    fullname: {
+    firstname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -50,11 +50,6 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      default: false
-    },
     createdAt: {
       type: DataTypes.DATE,
     },
@@ -70,12 +65,6 @@ export default (sequelize, DataTypes) => {
     });
     User.hasOne(models.Student, {
       foreignKey: 'UserId'
-    });
-    // M:M
-    User.belongsToMany(models.Course, {
-      through: { model: models.TeacherCourse },
-      as: 'courses',
-      foreignKey: 'TeacherId',
     });
     // M:M
     User.belongsToMany(models.Role, {

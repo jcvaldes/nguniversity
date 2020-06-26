@@ -1,12 +1,12 @@
+import { environment } from './../../../../../environments/environment';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ComboSearchComponent } from '../../../../shared/combo-search/combo-search.component';
 
 import { UserService } from '../../users/user.service';
 import { Course } from '../course.model';
 import _ from 'lodash';
-import { HttpService } from '../../../../services/http.service';
-import { CourseService } from '../course.service';
 import { User } from '../../users/user.model';
+import { HttpService } from '../../../../services/http.service';
 
 @Component({
   selector: 'app-course-search',
@@ -17,8 +17,8 @@ export class CourseSearchComponent extends ComboSearchComponent<Course> {
   selected: string;
   @Input() isMultiple = true;
   @Output() courseChanged = new EventEmitter<User[]>();
-  constructor(public _courseService: CourseService) {
-    super(_courseService, false);
+  constructor(public _httpService: HttpService) {
+    super(_httpService, `${environment.apiUrl}/api/user`);
   }
   onSelectionChange(evt) {
     const selected = _.filter(this.payload, (el) => {

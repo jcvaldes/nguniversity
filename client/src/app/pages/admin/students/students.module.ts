@@ -10,9 +10,7 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { NotificationService } from '../../../services/notification.service';
 import { StudentsComponent } from './students.component';
-import { StudentListResolverGuard } from './student-list/student-list-resolver.guard';
 import { PipesModule } from '../../../pipes/pipes.module';
-import { RolesModule } from '../roles/roles.module';
 import { CoursesModule } from '../courses/courses.module';
 
 @NgModule({
@@ -30,10 +28,9 @@ import { CoursesModule } from '../courses/courses.module';
     StudentsRoutingModule,
     PipesModule,
     RouterModule,
-    RolesModule,
     CoursesModule
   ],
   exports: [],
-  providers: [StudentService, NotificationService, StudentListResolverGuard]
+  providers: [NotificationService]
 })
 export class StudentsModule {}
